@@ -225,13 +225,14 @@ public class PdfFormField extends PdfAnnotation {
 
 	/**
 	 * Getter for property parent.
-	 * 
+	 *
 	 * @return Value of property parent.
 	 */
 	public PdfFormField getParent() {
 		return parent;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addKid(PdfFormField field) {
 		field.parent = this;
 		if (kids == null) {

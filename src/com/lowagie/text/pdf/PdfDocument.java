@@ -100,6 +100,7 @@ import java.util.TreeMap;
  * @since 2.0.8 (class was package-private before)
  */
 
+@SuppressWarnings("unchecked")
 public class PdfDocument extends Document {
 
 	/**
@@ -110,7 +111,7 @@ public class PdfDocument extends Document {
 	 * should be strings.<BR>
 	 * This object is described in the 'Portable Document Format Reference Manual version 1.3'
 	 * section 6.10 (page 120-121)
-	 * 
+	 *
 	 * @since 2.0.8 (PdfDocument was package-private before)
 	 */
 
@@ -251,7 +252,7 @@ public class PdfDocument extends Document {
 
 		/**
 		 * Adds the names of the named destinations to the catalog.
-		 * 
+		 *
 		 * @param localDestinations the local destinations
 		 * @param documentLevelJS the javascript used in the document
 		 * @param documentFileAttachment the attached files
@@ -299,7 +300,7 @@ public class PdfDocument extends Document {
 
 		/**
 		 * Adds an open action to the catalog.
-		 * 
+		 *
 		 * @param action the action that will be triggered upon opening the document
 		 */
 		void setOpenAction(PdfAction action) {
@@ -308,7 +309,7 @@ public class PdfDocument extends Document {
 
 		/**
 		 * Sets the document level additional actions.
-		 * 
+		 *
 		 * @param actions dictionary of actions
 		 */
 		void setAdditionalActions(PdfDictionary actions) {
@@ -365,7 +366,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Getter for the current leading.
-	 * 
+	 *
 	 * @return the current leading
 	 * @since 2.1.2
 	 */
@@ -375,7 +376,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Setter for the current leading.
-	 * 
+	 *
 	 * @param leading the current leading
 	 * @since 2.1.6
 	 */
@@ -392,14 +393,14 @@ public class PdfDocument extends Document {
 	/**
 	 * Signals that onParagraph is valid (to avoid that a Chapter/Section title is treated as a
 	 * Paragraph).
-	 * 
+	 *
 	 * @since 2.1.2
 	 */
 	protected boolean	isSectionTitle	= false;
 
 	/**
 	 * Signals that the current leading has to be subtracted from a YMark object when positive.
-	 * 
+	 *
 	 * @since 2.1.2
 	 */
 	protected int		leadingCount	= 0;
@@ -859,7 +860,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Use this method to set the XMP Metadata.
-	 * 
+	 *
 	 * @param xmpMetadata The xmpMetadata to set.
 	 */
 	public void setXmpMetadata(byte[] xmpMetadata) {
@@ -1165,7 +1166,7 @@ public class PdfDocument extends Document {
 	 * Initializes a page.
 	 * <P>
 	 * If the footer/header is set, it is printed.
-	 * 
+	 *
 	 * @throws DocumentException on error
 	 */
 	protected void initPage() throws DocumentException {
@@ -1236,7 +1237,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Adds the current line to the list of lines and also adds an empty line.
-	 * 
+	 *
 	 * @throws DocumentException on error
 	 */
 	protected void newLine() throws DocumentException {
@@ -1285,7 +1286,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Gets the current vertical page position.
-	 * 
+	 *
 	 * @param ensureNewLine Tells whether a new line shall be enforced. This may cause side effects
 	 *            for elements that do not terminate the lines they've started because those lines
 	 *            will get terminated.
@@ -1343,7 +1344,7 @@ public class PdfDocument extends Document {
 		PdfFont currentFont = null;
 		float displacement = 0;
 		PdfLine l;
-		Float lastBaseFactor = new Float(0);
+		Float lastBaseFactor = Float.valueOf(0);
 		currentValues[1] = lastBaseFactor;
 		// looping over all the lines
 		for (Iterator i = lines.iterator(); i.hasNext();) {
@@ -1379,7 +1380,7 @@ public class PdfDocument extends Document {
 	 * <P>
 	 * Before entering the line position must have been established and the <CODE>text</CODE>
 	 * argument must be in text object scope (<CODE>beginText()</CODE>).
-	 * 
+	 *
 	 * @param line the line to be written
 	 * @param text the <CODE>PdfContentByte</CODE> where the text will be written to
 	 * @param graphics the <CODE>PdfContentByte</CODE> where the graphics will be written to
@@ -1756,7 +1757,7 @@ public class PdfDocument extends Document {
 			text.moveText(baseXMarker - text.getXTLM(), 0);
 		}
 		currentValues[0] = currentFont;
-		currentValues[1] = new Float(lastBaseFactor);
+		currentValues[1] = Float.valueOf(lastBaseFactor);
 	}
 
 	protected Indentation indentation = new Indentation();
@@ -1945,7 +1946,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Adds a named outline to the document .
-	 * 
+	 *
 	 * @param outline the outline to be added
 	 * @param name the name of this local destination
 	 */
@@ -1956,7 +1957,7 @@ public class PdfDocument extends Document {
 	/**
 	 * Gets the root outline. All the outlines must be created with a parent. The first level is
 	 * created with this outline.
-	 * 
+	 *
 	 * @return the root outline
 	 */
 	public PdfOutline getRootOutline() {
@@ -2064,7 +2065,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Sets the page labels
-	 * 
+	 *
 	 * @param pageLabels the page labels
 	 */
 	void setPageLabels(PdfPageLabels pageLabels) {
@@ -2076,7 +2077,7 @@ public class PdfDocument extends Document {
 	/**
 	 * Implements a link to other part of the document. The jump will be made to a local destination
 	 * with the same name, that must exist.
-	 * 
+	 *
 	 * @param name the name for this link
 	 * @param llx the lower left x corner of the activation area
 	 * @param lly the lower left y corner of the activation area
@@ -2090,7 +2091,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Implements a link to another document.
-	 * 
+	 *
 	 * @param filename the filename for the remote document
 	 * @param name the name to jump to
 	 * @param llx the lower left x corner of the activation area
@@ -2104,7 +2105,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Implements a link to another document.
-	 * 
+	 *
 	 * @param filename the filename for the remote document
 	 * @param page the page to jump to
 	 * @param llx the lower left x corner of the activation area
@@ -2118,7 +2119,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Implements an action in an area.
-	 * 
+	 *
 	 * @param action the <CODE>PdfAction</CODE>
 	 * @param llx the lower left x corner of the activation area
 	 * @param lly the lower left y corner of the activation area
@@ -2156,7 +2157,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * The local destination to where a local goto with the same name will jump to.
-	 * 
+	 *
 	 * @param name the name of this local destination
 	 * @param destination the <CODE>PdfDestination</CODE> with the jump coordinates
 	 * @return <CODE>true</CODE> if the local destination was added, <CODE>false</CODE> if a local
@@ -2275,7 +2276,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Sets the collection dictionary.
-	 * 
+	 *
 	 * @param collection a dictionary of type PdfCollection
 	 */
 	public void setCollection(PdfCollection collection) {
@@ -2288,7 +2289,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Gets the AcroForm object.
-	 * 
+	 *
 	 * @return the PdfAcroform object of the PdfDocument
 	 */
 	PdfAcroForm getAcroForm() {
@@ -2365,7 +2366,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Gives the size of a trim, art, crop or bleed box, or null if not defined.
-	 * 
+	 *
 	 * @param boxName crop, trim, art or bleed
 	 */
 	Rectangle getBoxSize(String boxName) {
@@ -2388,14 +2389,14 @@ public class PdfDocument extends Document {
 	// [U3] page actions
 
 	/** The duration of the page */
-	protected int			duration	= -1;	 // negative values will indicate no duration
+	protected int			duration	= -1;		 // negative values will indicate no duration
 
 	/** The page transition */
 	protected PdfTransition	transition	= null;
 
 	/**
 	 * Sets the display duration for the page (for presentations)
-	 * 
+	 *
 	 * @param seconds the number of seconds to display the page
 	 */
 	void setDuration(int seconds) {
@@ -2408,7 +2409,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Sets the transition for the page
-	 * 
+	 *
 	 * @param transition the PdfTransition object
 	 */
 	void setTransition(PdfTransition transition) {
@@ -2448,7 +2449,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Getter for property strictImageSequence.
-	 * 
+	 *
 	 * @return Value of property strictImageSequence.
 	 */
 	boolean isStrictImageSequence() {
@@ -2457,7 +2458,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Setter for property strictImageSequence.
-	 * 
+	 *
 	 * @param strictImageSequence New value of property strictImageSequence.
 	 */
 	void setStrictImageSequence(boolean strictImageSequence) {
@@ -2486,7 +2487,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Adds an image to the document.
-	 * 
+	 *
 	 * @param image the <CODE>Image</CODE> to add
 	 * @throws PdfException on error
 	 * @throws DocumentException on error
@@ -2568,7 +2569,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Adds a <CODE>PdfPTable</CODE> to the document.
-	 * 
+	 *
 	 * @param ptable the <CODE>PdfPTable</CODE> to be added to the document.
 	 * @throws DocumentException on error
 	 */
@@ -2635,7 +2636,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * This is a helper class for adding a Table to a document.
-	 * 
+	 *
 	 * @since 2.0.8 (PdfDocument was package-private before)
 	 */
 	protected static class RenderingContext {
@@ -2658,7 +2659,7 @@ public class PdfDocument extends Document {
 
 		/**
 		 * Consumes the rowspan
-		 * 
+		 *
 		 * @param c
 		 * @return a rowspan.
 		 */
@@ -2669,10 +2670,10 @@ public class PdfDocument extends Document {
 
 			Integer i = (Integer) rowspanMap.get(c);
 			if (i == null) {
-				i = new Integer(c.rowspan());
+				i = Integer.valueOf(c.rowspan());
 			}
 
-			i = new Integer(i.intValue() - 1);
+			i = Integer.valueOf(i.intValue() - 1);
 			rowspanMap.put(c, i);
 
 			if (i.intValue() < 1) {
@@ -2683,7 +2684,7 @@ public class PdfDocument extends Document {
 
 		/**
 		 * Looks at the current rowspan.
-		 * 
+		 *
 		 * @param c
 		 * @return the current rowspan
 		 */
@@ -2699,13 +2700,13 @@ public class PdfDocument extends Document {
 		public int cellRendered(PdfCell cell, int pageNumber) {
 			Integer i = (Integer) pageMap.get(cell);
 			if (i == null) {
-				i = new Integer(1);
+				i = Integer.valueOf(1);
 			} else {
-				i = new Integer(i.intValue() + 1);
+				i = Integer.valueOf(i.intValue() + 1);
 			}
 			pageMap.put(cell, i);
 
-			Integer pageInteger = new Integer(pageNumber);
+			Integer pageInteger = Integer.valueOf(pageNumber);
 			Set set = (Set) pageMap.get(pageInteger);
 
 			if (set == null) {
@@ -2721,13 +2722,13 @@ public class PdfDocument extends Document {
 		public int numCellRendered(PdfCell cell) {
 			Integer i = (Integer) pageMap.get(cell);
 			if (i == null) {
-				i = new Integer(0);
+				i = Integer.valueOf(0);
 			}
 			return i.intValue();
 		}
 
 		public boolean isCellRenderedOnPage(PdfCell cell, int pageNumber) {
-			Integer pageInteger = new Integer(pageNumber);
+			Integer pageInteger = Integer.valueOf(pageNumber);
 			Set set = (Set) pageMap.get(pageInteger);
 
 			if (set != null) {
@@ -2740,7 +2741,7 @@ public class PdfDocument extends Document {
 
 	/**
 	 * Adds a new table to the document.
-	 * 
+	 *
 	 * @param t Table to add. Rendered rows will be deleted after processing.
 	 * @throws DocumentException
 	 * @since iText 2.0.8

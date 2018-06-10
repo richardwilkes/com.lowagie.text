@@ -95,6 +95,7 @@ import java.util.TreeSet;
  * </P>
  */
 
+@SuppressWarnings("unchecked")
 public class PdfWriter extends DocWriter implements PdfViewerPreferences, PdfVersion, PdfDocumentActions, PdfPageActions, PdfXConformance, PdfRunDirection, PdfAnnotations {
 
 	/**
@@ -448,14 +449,14 @@ public class PdfWriter extends DocWriter implements PdfViewerPreferences, PdfVer
 				if (first + len == entry.getRefnum()) {
 					++len;
 				} else {
-					sections.add(new Integer(first));
-					sections.add(new Integer(len));
+					sections.add(Integer.valueOf(first));
+					sections.add(Integer.valueOf(len));
 					first = entry.getRefnum();
 					len = 1;
 				}
 			}
-			sections.add(new Integer(first));
-			sections.add(new Integer(len));
+			sections.add(Integer.valueOf(first));
+			sections.add(Integer.valueOf(len));
 			if (writer.isFullCompression()) {
 				int mid = 4;
 				int mask = 0xff000000;

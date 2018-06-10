@@ -42,7 +42,7 @@
  *
  * Contributions by:
  * Lubos Strapko
- * 
+ *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
  * http://www.lowagie.com/iText/
@@ -51,14 +51,16 @@
 package com.lowagie.text.html.simpleparser;
 
 import com.lowagie.text.ElementTags;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("unchecked")
 public class ChainedProperties {
 
-	public final static int fontSizes[] = { 8, 10, 12, 14, 18, 24, 36 };
+	public final static int	fontSizes[]	= { 8, 10, 12, 14, 18, 24, 36 };
 
-	public ArrayList chain = new ArrayList();
+	public ArrayList		chain		= new ArrayList();
 
 	/** Creates a new instance of ChainedProperties */
 	public ChainedProperties() {
@@ -69,8 +71,9 @@ public class ChainedProperties {
 			Object obj[] = (Object[]) chain.get(k);
 			HashMap prop = (HashMap) obj[1];
 			String ret = (String) prop.get(key);
-			if (ret != null)
+			if (ret != null) {
 				return ret;
+			}
 		}
 		return null;
 	}
@@ -79,8 +82,9 @@ public class ChainedProperties {
 		for (int k = chain.size() - 1; k >= 0; --k) {
 			Object obj[] = (Object[]) chain.get(k);
 			HashMap prop = (HashMap) obj[1];
-			if (prop.containsKey(key))
+			if (prop.containsKey(key)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -90,14 +94,14 @@ public class ChainedProperties {
 		String value = (String) prop.get(ElementTags.SIZE);
 		if (value != null) {
 			if (value.endsWith("pt")) {
-				prop.put(ElementTags.SIZE, value.substring(0,
-						value.length() - 2));
+				prop.put(ElementTags.SIZE, value.substring(0, value.length() - 2));
 			} else {
 				int s = 0;
 				if (value.startsWith("+") || value.startsWith("-")) {
 					String old = getProperty("basefontsize");
-					if (old == null)
+					if (old == null) {
 						old = "12";
+					}
 					float f = Float.parseFloat(old);
 					int c = (int) f;
 					for (int k = fontSizes.length - 1; k >= 0; --k) {
@@ -106,8 +110,7 @@ public class ChainedProperties {
 							break;
 						}
 					}
-					int inc = Integer.parseInt(value.startsWith("+") ? value
-							.substring(1) : value);
+					int inc = Integer.parseInt(value.startsWith("+") ? value.substring(1) : value);
 					s += inc;
 				} else {
 					try {
@@ -116,10 +119,11 @@ public class ChainedProperties {
 						s = 0;
 					}
 				}
-				if (s < 0)
+				if (s < 0) {
 					s = 0;
-				else if (s >= fontSizes.length)
+				} else if (s >= fontSizes.length) {
 					s = fontSizes.length - 1;
+				}
 				prop.put(ElementTags.SIZE, Integer.toString(fontSizes[s]));
 			}
 		}

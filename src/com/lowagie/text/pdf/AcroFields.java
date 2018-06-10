@@ -71,6 +71,7 @@ import org.w3c.dom.Node;
  *
  * @author Paulo Soares (psoares@consiste.pt)
  */
+@SuppressWarnings("unchecked")
 public class AcroFields {
 
 	PdfReader				reader;
@@ -541,28 +542,28 @@ public class AcroFields {
 					if (operator.equals("Tf")) {
 						if (stack.size() >= 2) {
 							ret[DA_FONT] = stack.get(stack.size() - 2);
-							ret[DA_SIZE] = new Float((String) stack.get(stack.size() - 1));
+							ret[DA_SIZE] = Float.valueOf((String) stack.get(stack.size() - 1));
 						}
 					} else if (operator.equals("g")) {
 						if (stack.size() >= 1) {
-							float gray = new Float((String) stack.get(stack.size() - 1)).floatValue();
+							float gray = Float.valueOf((String) stack.get(stack.size() - 1)).floatValue();
 							if (gray != 0) {
 								ret[DA_COLOR] = new GrayColor(gray);
 							}
 						}
 					} else if (operator.equals("rg")) {
 						if (stack.size() >= 3) {
-							float red = new Float((String) stack.get(stack.size() - 3)).floatValue();
-							float green = new Float((String) stack.get(stack.size() - 2)).floatValue();
-							float blue = new Float((String) stack.get(stack.size() - 1)).floatValue();
+							float red = Float.valueOf((String) stack.get(stack.size() - 3)).floatValue();
+							float green = Float.valueOf((String) stack.get(stack.size() - 2)).floatValue();
+							float blue = Float.valueOf((String) stack.get(stack.size() - 1)).floatValue();
 							ret[DA_COLOR] = new Color(red, green, blue);
 						}
 					} else if (operator.equals("k")) {
 						if (stack.size() >= 4) {
-							float cyan = new Float((String) stack.get(stack.size() - 4)).floatValue();
-							float magenta = new Float((String) stack.get(stack.size() - 3)).floatValue();
-							float yellow = new Float((String) stack.get(stack.size() - 2)).floatValue();
-							float black = new Float((String) stack.get(stack.size() - 1)).floatValue();
+							float cyan = Float.valueOf((String) stack.get(stack.size() - 4)).floatValue();
+							float magenta = Float.valueOf((String) stack.get(stack.size() - 3)).floatValue();
+							float yellow = Float.valueOf((String) stack.get(stack.size() - 2)).floatValue();
+							float black = Float.valueOf((String) stack.get(stack.size() - 1)).floatValue();
 							ret[DA_COLOR] = new CMYKColor(cyan, magenta, yellow, black);
 						}
 					}
@@ -599,7 +600,7 @@ public class AcroFields {
 							PRIndirectReference por = (PRIndirectReference) po;
 							BaseFont bp = new DocumentFont((PRIndirectReference) po);
 							tx.setFont(bp);
-							Integer porkey = new Integer(por.getNumber());
+							Integer porkey = Integer.valueOf(por.getNumber());
 							BaseFont porf = (BaseFont) extensionFonts.get(porkey);
 							if (porf == null) {
 								if (!extensionFonts.containsKey(porkey)) {
@@ -2006,7 +2007,7 @@ public class AcroFields {
 		 * @param pg
 		 */
 		void addPage(int pg) {
-			page.add(new Integer(pg));
+			page.add(Integer.valueOf(pg));
 		}
 
 		/**
@@ -2016,7 +2017,7 @@ public class AcroFields {
 		 * @param idx
 		 */
 		void forcePage(int idx, int pg) {
-			page.set(idx, new Integer(pg));
+			page.set(idx, Integer.valueOf(pg));
 		}
 
 		/**
@@ -2037,7 +2038,7 @@ public class AcroFields {
 		 * @param order
 		 */
 		void addTabOrder(int order) {
-			tabOrder.add(new Integer(order));
+			tabOrder.add(Integer.valueOf(order));
 		}
 	}
 

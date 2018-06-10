@@ -75,7 +75,7 @@ import java.util.Iterator;
  * <CODE>GridBagLayout</CODE>.
  * <P>
  * Example: <BLOCKQUOTE>
- * 
+ *
  * <PRE>
  * // Remark: You MUST know the number of columns when constructing a Table.
  * //         The number of rows is not important.
@@ -104,7 +104,7 @@ import java.util.Iterator;
  * <STRONG>table.addCell(cell);</STRONG>
  * <STRONG>table.addCell("cell test2");</STRONG>
  * </PRE>
- * 
+ *
  * </BLOCKQUOTE> The result of this code is a table:
  * <TABLE ALIGN="Center" BORDER="1" BORDERCOLOR="#0000ff" CELLPADDING="5" CELLSPACING="5">
  * <TR ALIGN="Left" VALIGN="Left">
@@ -135,6 +135,7 @@ import java.util.Iterator;
  * @see Cell
  */
 
+@SuppressWarnings("unchecked")
 public class Table extends Rectangle implements LargeElement {
 
 	// membervariables
@@ -198,14 +199,14 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Indicates if this is the first time the section was added.
-	 * 
+	 *
 	 * @since iText 2.0.8
 	 */
 	protected boolean	notAddedYet			= true;
 
 	/**
 	 * Indicates if the PdfPTable is complete once added to the document.
-	 * 
+	 *
 	 * @since iText 2.0.8
 	 */
 	protected boolean	complete			= true;
@@ -359,7 +360,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Gets the default layout of the Table.
-	 * 
+	 *
 	 * @return a cell with all the defaults
 	 * @since 2.0.7
 	 */
@@ -369,7 +370,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Sets the default layout of the Table to the provided Cell
-	 * 
+	 *
 	 * @param value a cell with all the defaults
 	 * @since 2.0.7
 	 */
@@ -379,7 +380,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Gets the last number of the rows that contain headers.
-	 * 
+	 *
 	 * @return a rownumber
 	 */
 	public int getLastHeaderRow() {
@@ -538,12 +539,12 @@ public class Table extends Rectangle implements LargeElement {
 	 * 100%. The values will be recalculated as percentages of this sum.
 	 * <P>
 	 * example: <BLOCKQUOTE>
-	 * 
+	 *
 	 * <PRE>
 	 * float[] widths = {2, 1, 1};
 	 * <STRONG>table.setWidths(widths)</STRONG>
 	 * </PRE>
-	 * 
+	 *
 	 * </BLOCKQUOTE> The widths will be: a width of 50% for the first column, 25% for the second and
 	 * third column.
 	 *
@@ -655,7 +656,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Method to check if the Table should be converted to a PdfPTable or not.
-	 * 
+	 *
 	 * @return false if the table should be handled the old fashioned way.
 	 */
 	public boolean isConvert2pdfptable() {
@@ -664,7 +665,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * If set to true, iText will try to convert the Table to a PdfPTable.
-	 * 
+	 *
 	 * @param convert2pdfptable true if you want iText to try to convert the Table to a PdfPTable
 	 */
 	public void setConvert2pdfptable(boolean convert2pdfptable) {
@@ -968,7 +969,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * returns the element at the position row, column (Cast to Cell or Table)
-	 * 
+	 *
 	 * @param row
 	 * @param column
 	 * @return dimension
@@ -1320,7 +1321,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Sets current col/row to valid(empty) pos after addCell/Table
-	 * 
+	 *
 	 * @param aLocation a location in the Table
 	 */
 	private void setCurrentLocationToNextValidPosition(Point aLocation) {
@@ -1395,7 +1396,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Create a PdfPTable based on this Table object.
-	 * 
+	 *
 	 * @return a PdfPTable object
 	 * @throws BadElementException
 	 */
@@ -1455,7 +1456,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Indicates if this is the first time the section is added.
-	 * 
+	 *
 	 * @since iText2.0.8
 	 * @return true if the section wasn't added yet
 	 */
@@ -1465,7 +1466,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Sets the indication if the section was already added to the document.
-	 * 
+	 *
 	 * @since iText2.0.8
 	 * @param notAddedYet
 	 */
@@ -1507,7 +1508,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Gets the default layout of the Table.
-	 * 
+	 *
 	 * @return a cell with all the defaults
 	 * @deprecated As of iText 2.0.7, replaced by {@link #getDefaultCell()}, scheduled for removal
 	 *             at 2.2.0
@@ -1519,7 +1520,7 @@ public class Table extends Rectangle implements LargeElement {
 
 	/**
 	 * Sets the default layout of the Table to the provided Cell
-	 * 
+	 *
 	 * @param value a cell with all the defaults
 	 * @deprecated As of iText 2.0.7, replaced by {@link #setDefaultCell(Cell)}, scheduled for
 	 *             removal at 2.2.0

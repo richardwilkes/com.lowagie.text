@@ -49,128 +49,141 @@
 
 package com.lowagie.text.pdf.draw;
 
-import java.util.ArrayList;
-
 import com.lowagie.text.Chunk;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.ElementListener;
 import com.lowagie.text.pdf.PdfContentByte;
 
+import java.util.ArrayList;
+
 /**
- * Helper class implementing the DrawInterface. Can be used to add
- * horizontal or vertical separators. Won't draw anything unless
- * you implement the draw method.
- * @since	2.1.2
+ * Helper class implementing the DrawInterface. Can be used to add horizontal or vertical
+ * separators. Won't draw anything unless you implement the draw method.
+ * 
+ * @since 2.1.2
  */
 
 public class VerticalPositionMark implements DrawInterface, Element {
 
-    /** Another implementation of the DrawInterface; its draw method will overrule LineSeparator.draw(). */
-    protected DrawInterface drawInterface = null;
-
-    /** The offset for the line. */
-    protected float offset = 0;
-	
 	/**
-	 * Creates a vertical position mark that won't draw anything unless
-	 * you define a DrawInterface.
+	 * Another implementation of the DrawInterface; its draw method will overrule
+	 * LineSeparator.draw().
 	 */
-	public VerticalPositionMark() {	
+	protected DrawInterface	drawInterface	= null;
+
+	/** The offset for the line. */
+	protected float			offset			= 0;
+
+	/**
+	 * Creates a vertical position mark that won't draw anything unless you define a DrawInterface.
+	 */
+	public VerticalPositionMark() {
 	}
 
 	/**
-	 * Creates a vertical position mark that won't draw anything unless
-	 * you define a DrawInterface.
-	 * @param	drawInterface	the drawInterface for this vertical position mark.
-	 * @param	offset			the offset for this vertical position mark.
+	 * Creates a vertical position mark that won't draw anything unless you define a DrawInterface.
+	 * 
+	 * @param drawInterface the drawInterface for this vertical position mark.
+	 * @param offset the offset for this vertical position mark.
 	 */
 	public VerticalPositionMark(DrawInterface drawInterface, float offset) {
 		this.drawInterface = drawInterface;
 		this.offset = offset;
 	}
-	
+
 	/**
-	 * @see com.lowagie.text.pdf.draw.DrawInterface#draw(com.lowagie.text.pdf.PdfContentByte, float, float, float, float, float)
+	 * @see com.lowagie.text.pdf.draw.DrawInterface#draw(com.lowagie.text.pdf.PdfContentByte, float,
+	 *      float, float, float, float)
 	 */
+	@Override
 	public void draw(PdfContentByte canvas, float llx, float lly, float urx, float ury, float y) {
 		if (drawInterface != null) {
 			drawInterface.draw(canvas, llx, lly, urx, ury, y + offset);
 		}
 	}
-	
-    /**
-     * @see com.lowagie.text.Element#process(com.lowagie.text.ElementListener)
-     */
-    public boolean process(ElementListener listener) {
+
+	/**
+	 * @see com.lowagie.text.Element#process(com.lowagie.text.ElementListener)
+	 */
+	@Override
+	public boolean process(ElementListener listener) {
 		try {
 			return listener.add(this);
 		} catch (DocumentException e) {
 			return false;
 		}
-    }
+	}
 
-    /**
-     * @see com.lowagie.text.Element#type()
-     */
-    public int type() {
-        return Element.YMARK;
-    }
+	/**
+	 * @see com.lowagie.text.Element#type()
+	 */
+	@Override
+	public int type() {
+		return Element.YMARK;
+	}
 
-    /**
-     * @see com.lowagie.text.Element#isContent()
-     */
-    public boolean isContent() {
-        return true;
-    }
+	/**
+	 * @see com.lowagie.text.Element#isContent()
+	 */
+	@Override
+	public boolean isContent() {
+		return true;
+	}
 
-    /**
-     * @see com.lowagie.text.Element#isNestable()
-     */
-    public boolean isNestable() {
-        return false;
-    }
+	/**
+	 * @see com.lowagie.text.Element#isNestable()
+	 */
+	@Override
+	public boolean isNestable() {
+		return false;
+	}
 
-    /**
-     * @see com.lowagie.text.Element#getChunks()
-     */
-    public ArrayList getChunks() {
-    	ArrayList list = new ArrayList();
-    	list.add(new Chunk(this, true));
-        return list;
-    }
+	/**
+	 * @see com.lowagie.text.Element#getChunks()
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public ArrayList getChunks() {
+		ArrayList list = new ArrayList();
+		list.add(new Chunk(this, true));
+		return list;
+	}
 
-    /**
-     * Getter for the interface with the overruling draw() method.
-     * @return	a DrawInterface implementation
-     */
-    public DrawInterface getDrawInterface() {
-        return drawInterface;
-    }
+	/**
+	 * Getter for the interface with the overruling draw() method.
+	 * 
+	 * @return a DrawInterface implementation
+	 */
+	public DrawInterface getDrawInterface() {
+		return drawInterface;
+	}
 
-    /**
-     * Setter for the interface with the overruling draw() method.
-     * @param drawInterface a DrawInterface implementation
-     */
-    public void setDrawInterface(DrawInterface drawInterface) {
-        this.drawInterface = drawInterface;
-    }
+	/**
+	 * Setter for the interface with the overruling draw() method.
+	 * 
+	 * @param drawInterface a DrawInterface implementation
+	 */
+	public void setDrawInterface(DrawInterface drawInterface) {
+		this.drawInterface = drawInterface;
+	}
 
-    /**
-     * Getter for the offset relative to the baseline of the current line.
-     * @return	an offset
-     */
-    public float getOffset() {
-        return offset;
-    }
+	/**
+	 * Getter for the offset relative to the baseline of the current line.
+	 * 
+	 * @return an offset
+	 */
+	public float getOffset() {
+		return offset;
+	}
 
-    /**
-     * Setter for the offset. The offset is relative to the current
-     * Y position. If you want to underline something, you have to
-     * choose a negative offset.
-     * @param offset	an offset
-     */
-    public void setOffset(float offset) {
-        this.offset = offset;
-    }
+	/**
+	 * Setter for the offset. The offset is relative to the current Y position. If you want to
+	 * underline something, you have to choose a negative offset.
+	 * 
+	 * @param offset an offset
+	 */
+	public void setOffset(float offset) {
+		this.offset = offset;
+	}
 }

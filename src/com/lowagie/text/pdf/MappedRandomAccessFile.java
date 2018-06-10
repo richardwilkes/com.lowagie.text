@@ -63,6 +63,7 @@ import java.security.PrivilegedAction;
  *
  * @author Joakim Sandstroem Created on 6.9.2006
  */
+@SuppressWarnings("unchecked")
 public class MappedRandomAccessFile {
 
 	private MappedByteBuffer	mappedByteBuffer	= null;
@@ -70,7 +71,7 @@ public class MappedRandomAccessFile {
 
 	/**
 	 * Constructs a new MappedRandomAccessFile instance
-	 * 
+	 *
 	 * @param filename String
 	 * @param mode String r, w or rw
 	 * @throws FileNotFoundException
@@ -88,7 +89,7 @@ public class MappedRandomAccessFile {
 
 	/**
 	 * initializes the channel and mapped bytebuffer
-	 * 
+	 *
 	 * @param channel FileChannel
 	 * @param mapMode FileChannel.MapMode
 	 * @throws IOException
@@ -182,6 +183,7 @@ public class MappedRandomAccessFile {
 	/**
 	 * invokes the close method
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void finalize() throws Throwable {
 		close();
@@ -190,7 +192,7 @@ public class MappedRandomAccessFile {
 
 	/**
 	 * invokes the clean method on the ByteBuffer's cleaner
-	 * 
+	 *
 	 * @param buffer ByteBuffer
 	 * @return boolean true on success
 	 */

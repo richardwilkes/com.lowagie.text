@@ -42,7 +42,7 @@
  *
  * Contributions by:
  * Lubos Strapko
- * 
+ *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
  * http://www.lowagie.com/iText/
@@ -51,13 +51,15 @@
 package com.lowagie.text.html.simpleparser;
 
 import com.lowagie.text.html.Markup;
+
 import java.util.HashMap;
 
+@SuppressWarnings("unchecked")
 public class StyleSheet {
 
-	public HashMap classMap = new HashMap();
+	public HashMap	classMap	= new HashMap();
 
-	public HashMap tagMap = new HashMap();
+	public HashMap	tagMap		= new HashMap();
 
 	/** Creates a new instance of StyleSheet */
 	public StyleSheet() {
@@ -71,11 +73,13 @@ public class StyleSheet {
 			props.putAll(temp);
 		}
 		String cm = (String) props.get(Markup.HTML_ATTR_CSS_CLASS);
-		if (cm == null)
+		if (cm == null) {
 			return;
+		}
 		map = (HashMap) classMap.get(cm.toLowerCase());
-		if (map == null)
+		if (map == null) {
 			return;
+		}
 		props.remove(Markup.HTML_ATTR_CSS_CLASS);
 		HashMap temp = new HashMap(map);
 		temp.putAll(props);

@@ -39,10 +39,10 @@
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Library general Public License for more
  * details.
- * 
+ *
  * Contributions by:
  * Lubos Strapko
- * 
+ *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
  * http://www.lowagie.com/iText/
@@ -50,42 +50,43 @@
 
 package com.lowagie.text.pdf.hyphenation;
 
+import com.lowagie.text.ExceptionConverter;
+import com.lowagie.text.html.HtmlTags;
+import com.lowagie.text.xml.simpleparser.SimpleXMLDocHandler;
+import com.lowagie.text.xml.simpleparser.SimpleXMLParser;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.lowagie.text.ExceptionConverter;
-import com.lowagie.text.html.HtmlTags;
-import com.lowagie.text.xml.simpleparser.SimpleXMLDocHandler;
-import com.lowagie.text.xml.simpleparser.SimpleXMLParser;
-
-/** Parses the xml hyphenation pattern.
+/**
+ * Parses the xml hyphenation pattern.
  *
  * @author Paulo Soares (psoares@consiste.pt)
  */
-public class SimplePatternParser implements SimpleXMLDocHandler,
-		PatternConsumer {
-	int currElement;
+@SuppressWarnings("unchecked")
+public class SimplePatternParser implements SimpleXMLDocHandler, PatternConsumer {
+	int					currElement;
 
-	PatternConsumer consumer;
+	PatternConsumer		consumer;
 
-	StringBuffer token;
+	StringBuffer		token;
 
-	ArrayList exception;
+	ArrayList			exception;
 
-	char hyphenChar;
+	char				hyphenChar;
 
-	SimpleXMLParser parser;
+	SimpleXMLParser		parser;
 
-	static final int ELEM_CLASSES = 1;
+	static final int	ELEM_CLASSES	= 1;
 
-	static final int ELEM_EXCEPTIONS = 2;
+	static final int	ELEM_EXCEPTIONS	= 2;
 
-	static final int ELEM_PATTERNS = 3;
+	static final int	ELEM_PATTERNS	= 3;
 
-	static final int ELEM_HYPHEN = 4;
+	static final int	ELEM_HYPHEN		= 4;
 
 	/** Creates a new instance of PatternParser2 */
 	public SimplePatternParser() {
@@ -180,29 +181,29 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 		return il.toString();
 	}
 
+	@Override
 	public void endDocument() {
 	}
 
+	@Override
 	public void endElement(String tag) {
 		if (token.length() > 0) {
 			String word = token.toString();
 			switch (currElement) {
-			case ELEM_CLASSES:
-				consumer.addClass(word);
-				break;
-			case ELEM_EXCEPTIONS:
-				exception.add(word);
-				exception = normalizeException(exception);
-				consumer.addException(getExceptionWord(exception),
-						(ArrayList) exception.clone());
-				break;
-			case ELEM_PATTERNS:
-				consumer.addPattern(getPattern(word),
-						getInterletterValues(word));
-				break;
-			case ELEM_HYPHEN:
-				// nothing to do
-				break;
+				case ELEM_CLASSES:
+					consumer.addClass(word);
+					break;
+				case ELEM_EXCEPTIONS:
+					exception.add(word);
+					exception = normalizeException(exception);
+					consumer.addException(getExceptionWord(exception), (ArrayList) exception.clone());
+					break;
+				case ELEM_PATTERNS:
+					consumer.addPattern(getPattern(word), getInterletterValues(word));
+					break;
+				case ELEM_HYPHEN:
+					// nothing to do
+					break;
 			}
 			if (currElement != ELEM_HYPHEN) {
 				token.setLength(0);
@@ -215,9 +216,11 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 		}
 	}
 
+	@Override
 	public void startDocument() {
 	}
 
+	@Override
 	public void startElement(String tag, java.util.HashMap h) {
 		if (tag.equals("hyphen-char")) {
 			String hh = (String) h.get("value");
@@ -235,46 +238,47 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 			if (token.length() > 0) {
 				exception.add(token.toString());
 			}
-			exception.add(new Hyphen((String) h.get(HtmlTags.PRE), (String) h
-					.get("no"), (String) h.get("post")));
+			exception.add(new Hyphen((String) h.get(HtmlTags.PRE), (String) h.get("no"), (String) h.get("post")));
 			currElement = ELEM_HYPHEN;
 		}
 		token.setLength(0);
 	}
 
+	@Override
 	public void text(String str) {
 		StringTokenizer tk = new StringTokenizer(str);
 		while (tk.hasMoreTokens()) {
 			String word = tk.nextToken();
 			// System.out.println("\"" + word + "\"");
 			switch (currElement) {
-			case ELEM_CLASSES:
-				consumer.addClass(word);
-				break;
-			case ELEM_EXCEPTIONS:
-				exception.add(word);
-				exception = normalizeException(exception);
-				consumer.addException(getExceptionWord(exception),
-						(ArrayList) exception.clone());
-				exception.clear();
-				break;
-			case ELEM_PATTERNS:
-				consumer.addPattern(getPattern(word),
-						getInterletterValues(word));
-				break;
+				case ELEM_CLASSES:
+					consumer.addClass(word);
+					break;
+				case ELEM_EXCEPTIONS:
+					exception.add(word);
+					exception = normalizeException(exception);
+					consumer.addException(getExceptionWord(exception), (ArrayList) exception.clone());
+					exception.clear();
+					break;
+				case ELEM_PATTERNS:
+					consumer.addPattern(getPattern(word), getInterletterValues(word));
+					break;
 			}
 		}
 	}
 
 	// PatternConsumer implementation for testing purposes
+	@Override
 	public void addClass(String c) {
 		System.out.println("class: " + c);
 	}
 
+	@Override
 	public void addException(String w, ArrayList e) {
 		System.out.println("exception: " + w + " : " + e.toString());
 	}
 
+	@Override
 	public void addPattern(String p, String v) {
 		System.out.println("pattern: " + p + " : " + v);
 	}

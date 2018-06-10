@@ -68,6 +68,7 @@ public class PRStream extends PdfStream {
 	protected int		objNum	= 0;
 	protected int		objGen	= 0;
 
+	@SuppressWarnings("unchecked")
 	public PRStream(PRStream stream, PdfDictionary newDic) {
 		reader = stream.reader;
 		offset = stream.offset;
@@ -101,7 +102,7 @@ public class PRStream extends PdfStream {
 
 	/**
 	 * Creates a new PDF stream object that will replace a stream in a existing PDF file.
-	 * 
+	 *
 	 * @param reader the reader that holds the existing PDF
 	 * @param conts the new content
 	 * @param compressionLevel the compression level for the content
@@ -132,7 +133,7 @@ public class PRStream extends PdfStream {
 	/**
 	 * Sets the data associated with the stream, either compressed or uncompressed. Note that the
 	 * data will never be compressed if Document.compress is set to false.
-	 * 
+	 *
 	 * @param data raw data, decrypted and uncompressed.
 	 * @param compress true if you want the stream to be compressed.
 	 * @since iText 2.1.1
@@ -144,7 +145,7 @@ public class PRStream extends PdfStream {
 	/**
 	 * Sets the data associated with the stream, either compressed or uncompressed. Note that the
 	 * data will never be compressed if Document.compress is set to false.
-	 * 
+	 *
 	 * @param data raw data, decrypted and uncompressed.
 	 * @param compress true if you want the stream to be compressed.
 	 * @param compressionLevel a value between -1 and 9 (ignored if compress == false)
@@ -175,7 +176,7 @@ public class PRStream extends PdfStream {
 
 	/**
 	 * Sets the data associated with the stream
-	 * 
+	 *
 	 * @param data raw data, decrypted and uncompressed.
 	 */
 	public void setData(byte[] data) {

@@ -55,13 +55,13 @@ import java.util.ArrayList;
 /**
  * A <CODE>Chapter</CODE> is a special <CODE>Section</CODE>.
  * <P>
- * A chapter number has to be created using a <CODE>Paragraph</CODE> as title
- * and an <CODE>int</CODE> as chapter number. The chapter number is shown be
- * default. If you don't want to see the chapter number, you have to set the
- * numberdepth to <VAR>0</VAR>.
+ * A chapter number has to be created using a <CODE>Paragraph</CODE> as title and an
+ * <CODE>int</CODE> as chapter number. The chapter number is shown be default. If you don't want to
+ * see the chapter number, you have to set the numberdepth to <VAR>0</VAR>.
  * <P>
- * Example:
- * <BLOCKQUOTE><PRE>
+ * Example: <BLOCKQUOTE>
+ * 
+ * <PRE>
  * Paragraph title2 = new Paragraph("This is Chapter 2", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLDITALIC, new Color(0, 0, 255)));
  * <STRONG>Chapter chapter2 = new Chapter(title2, 2);</STRONG>
  * <STRONG>chapter2.setNumberDepth(0);</STRONG>
@@ -71,64 +71,70 @@ import java.util.ArrayList;
  * Section section1 = <STRONG>chapter2.addSection(title21);</STRONG>
  * Paragraph someSectionText = new Paragraph("This is some silly paragraph in a chapter and/or section. It contains some text to test the functionality of Chapters and Section.");
  * section1.add(someSectionText);
- * </PRE></BLOCKQUOTE>
+ * </PRE>
+ * 
+ * </BLOCKQUOTE>
  */
 
+@SuppressWarnings("unchecked")
 public class Chapter extends Section {
-    
-    // constant
+
+	// constant
 	private static final long serialVersionUID = 1791000695779357361L;
-	
+
 	/**
 	 * Constructs a new <CODE>Chapter</CODE>.
-	 * @param	number		the Chapter number
-     */
-    public Chapter(int number) {
-        super(null, 1);
-        numbers = new ArrayList();
-        numbers.add(new Integer(number));
-        triggerNewPage = true;
-    }
-	
+	 * 
+	 * @param number the Chapter number
+	 */
+	public Chapter(int number) {
+		super(null, 1);
+		numbers = new ArrayList();
+		numbers.add(Integer.valueOf(number));
+		triggerNewPage = true;
+	}
+
 	/**
 	 * Constructs a new <CODE>Chapter</CODE>.
 	 *
-	 * @param	title		the Chapter title (as a <CODE>Paragraph</CODE>)
-	 * @param	number		the Chapter number
-     */
-    
-    public Chapter(Paragraph title, int number) {
-        super(title, 1);
-        numbers = new ArrayList();
-        numbers.add(new Integer(number));
-        triggerNewPage = true;
-    }
-    
-    /**
-     * Constructs a new <CODE>Chapter</CODE>.
-     *
-     * @param	title		the Chapter title (as a <CODE>String</CODE>)
-     * @param	number		the Chapter number
-     */
-    public Chapter(String title, int number) {
-        this(new Paragraph(title), number);
-    }
-    
-    // implementation of the Element-methods
-    
-    /**
-     * Gets the type of the text element.
-     *
-     * @return	a type
-     */
-    public int type() {
-        return Element.CHAPTER;
-    }
+	 * @param title the Chapter title (as a <CODE>Paragraph</CODE>)
+	 * @param number the Chapter number
+	 */
+
+	public Chapter(Paragraph title, int number) {
+		super(title, 1);
+		numbers = new ArrayList();
+		numbers.add(Integer.valueOf(number));
+		triggerNewPage = true;
+	}
+
+	/**
+	 * Constructs a new <CODE>Chapter</CODE>.
+	 *
+	 * @param title the Chapter title (as a <CODE>String</CODE>)
+	 * @param number the Chapter number
+	 */
+	public Chapter(String title, int number) {
+		this(new Paragraph(title), number);
+	}
+
+	// implementation of the Element-methods
+
+	/**
+	 * Gets the type of the text element.
+	 *
+	 * @return a type
+	 */
+	@Override
+	public int type() {
+		return Element.CHAPTER;
+	}
 
 	/**
 	 * @see com.lowagie.text.Element#isNestable()
-	 * @since	iText 2.0.8
+	 * @since iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return false;
 	}

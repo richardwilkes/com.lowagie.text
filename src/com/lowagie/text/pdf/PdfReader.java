@@ -84,6 +84,7 @@ import java.util.zip.InflaterInputStream;
  * @author Paulo Soares (psoares@consiste.pt)
  * @author Kazuya Ujihara
  */
+@SuppressWarnings("unchecked")
 public class PdfReader implements PdfViewerPreferences {
 
 	static final PdfName			pageInhCandidates[]				= { PdfName.MEDIABOX, PdfName.ROTATE, PdfName.RESOURCES, PdfName.CROPBOX };
@@ -1470,7 +1471,7 @@ public class PdfReader implements PdfViewerPreferences {
 							if (partial) {
 								objStmToOffset.put(field2, 0);
 							} else {
-								Integer on = new Integer(field2);
+								Integer on = Integer.valueOf(field2);
 								IntHashtable seq = (IntHashtable) objStmMark.get(on);
 								if (seq == null) {
 									seq = new IntHashtable();
@@ -2163,6 +2164,7 @@ public class PdfReader implements PdfViewerPreferences {
 	 * @throws IOException on error
 	 * @return the stream content
 	 */
+	@SuppressWarnings("deprecation")
 	public static byte[] getStreamBytes(PRStream stream, RandomAccessFileOrArray file) throws IOException {
 		PdfObject filter = getPdfObjectRelease(stream.get(PdfName.FILTER));
 		byte[] b = getStreamBytesRaw(stream, file);
@@ -2943,6 +2945,7 @@ public class PdfReader implements PdfViewerPreferences {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void removeUnusedNode(PdfObject obj, boolean hits[]) {
 		Stack state = new Stack();
 		state.push(obj);
@@ -3001,9 +3004,9 @@ public class PdfReader implements PdfViewerPreferences {
 						}
 					}
 					if (objs == null) {
-						state.push(new Object[] { ar, new Integer(k + 1) });
+						state.push(new Object[] { ar, Integer.valueOf(k + 1) });
 					} else {
-						objs[1] = new Integer(k + 1);
+						objs[1] = Integer.valueOf(k + 1);
 						state.push(objs);
 					}
 					state.push(v);
@@ -3021,9 +3024,9 @@ public class PdfReader implements PdfViewerPreferences {
 						}
 					}
 					if (objs == null) {
-						state.push(new Object[] { keys, dic, new Integer(k + 1) });
+						state.push(new Object[] { keys, dic, Integer.valueOf(k + 1) });
 					} else {
-						objs[2] = new Integer(k + 1);
+						objs[2] = Integer.valueOf(k + 1);
 						state.push(objs);
 					}
 					state.push(v);

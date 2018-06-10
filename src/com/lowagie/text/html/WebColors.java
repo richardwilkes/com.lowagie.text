@@ -54,17 +54,17 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 /**
- * This class is a HashMap that contains the names of colors as a key and the
- * corresponding Color as value. (Source: Wikipedia
- * http://en.wikipedia.org/wiki/Web_colors )
- * 
+ * This class is a HashMap that contains the names of colors as a key and the corresponding Color as
+ * value. (Source: Wikipedia http://en.wikipedia.org/wiki/Web_colors )
+ *
  * @author blowagie
  */
+@SuppressWarnings("unchecked")
 public class WebColors extends HashMap {
-    
-	private static final long serialVersionUID = 3542523100813372896L;
+
+	private static final long		serialVersionUID	= 3542523100813372896L;
 	/** HashMap containing all the names and corresponding color values. */
-	public static final WebColors NAMES = new WebColors();
+	public static final WebColors	NAMES				= new WebColors();
 	static {
 		NAMES.put("aliceblue", new int[] { 0xf0, 0xf8, 0xff, 0x00 });
 		NAMES.put("antiquewhite", new int[] { 0xfa, 0xeb, 0xd7, 0x00 });
@@ -211,16 +211,12 @@ public class WebColors extends HashMap {
 
 	/**
 	 * Gives you a Color based on a name.
-	 * 
-	 * @param name
-	 *            a name such as black, violet, cornflowerblue or #RGB or #RRGGBB
-     *            or rgb(R,G,B)
+	 *
+	 * @param name a name such as black, violet, cornflowerblue or #RGB or #RRGGBB or rgb(R,G,B)
 	 * @return the corresponding Color object
-	 * @throws IllegalArgumentException
-	 *             if the String isn't a know representation of a color.
+	 * @throws IllegalArgumentException if the String isn't a know representation of a color.
 	 */
-	public static Color getRGBColor(String name)
-			throws IllegalArgumentException {
+	public static Color getRGBColor(String name) throws IllegalArgumentException {
 		int[] c = { 0, 0, 0, 0 };
 		if (name.startsWith("#")) {
 			if (name.length() == 4) {
@@ -235,28 +231,28 @@ public class WebColors extends HashMap {
 				c[2] = Integer.parseInt(name.substring(5), 16);
 				return new Color(c[0], c[1], c[2], c[3]);
 			}
-			throw new IllegalArgumentException(
-					"Unknown color format. Must be #RGB or #RRGGBB");
+			throw new IllegalArgumentException("Unknown color format. Must be #RGB or #RRGGBB");
+		} else if (name.startsWith("rgb(")) {
+			StringTokenizer tok = new StringTokenizer(name, "rgb(), \t\r\n\f");
+			for (int k = 0; k < 3; ++k) {
+				String v = tok.nextToken();
+				if (v.endsWith("%")) {
+					c[k] = Integer.parseInt(v.substring(0, v.length() - 1)) * 255 / 100;
+				} else {
+					c[k] = Integer.parseInt(v);
+				}
+				if (c[k] < 0) {
+					c[k] = 0;
+				} else if (c[k] > 255) {
+					c[k] = 255;
+				}
+			}
+			return new Color(c[0], c[1], c[2], c[3]);
 		}
-        else if (name.startsWith("rgb(")) {
-            StringTokenizer tok = new StringTokenizer(name, "rgb(), \t\r\n\f");
-            for (int k = 0; k < 3; ++k) {
-                String v = tok.nextToken();
-                if (v.endsWith("%"))
-                    c[k] = Integer.parseInt(v.substring(0, v.length() - 1)) * 255 / 100;
-                else
-                    c[k] = Integer.parseInt(v);
-                if (c[k] < 0)
-                    c[k] = 0;
-                else if (c[k] > 255)
-                    c[k] = 255;
-            }
-            return new Color(c[0], c[1], c[2], c[3]);
-        }
 		name = name.toLowerCase();
-		if (!NAMES.containsKey(name))
-			throw new IllegalArgumentException("Color '" + name
-					+ "' not found.");
+		if (!NAMES.containsKey(name)) {
+			throw new IllegalArgumentException("Color '" + name + "' not found.");
+		}
 		c = (int[]) NAMES.get(name);
 		return new Color(c[0], c[1], c[2], c[3]);
 	}

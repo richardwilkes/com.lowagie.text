@@ -66,6 +66,7 @@ import java.util.ListIterator;
  *
  * @see PdfObject
  */
+@SuppressWarnings("unchecked")
 public class PdfArray extends PdfObject {
 
 	// CLASS VARIABLES
@@ -123,7 +124,7 @@ public class PdfArray extends PdfObject {
 	/**
 	 * Constructs a <CODE>PdfArray</CODE>, containing all elements of a specified
 	 * <CODE>ArrayList</CODE>.
-	 * 
+	 *
 	 * @param l an <CODE>ArrayList</CODE> with <CODE>PdfObject</CODE>s to be added to the array
 	 * @throws ClassCastException if the <CODE>ArrayList</CODE> contains something that isn't a
 	 *             <CODE>PdfObject</CODE>
@@ -152,7 +153,7 @@ public class PdfArray extends PdfObject {
 	/**
 	 * Writes the PDF representation of this <CODE>PdfArray</CODE> as an array of <CODE>byte</CODE>
 	 * to the specified <CODE>OutputStream</CODE>.
-	 * 
+	 *
 	 * @param writer for backwards compatibility
 	 * @param os the <CODE>OutputStream</CODE> to write the bytes to.
 	 */
@@ -189,7 +190,7 @@ public class PdfArray extends PdfObject {
 	 * consists of a list of all <CODE>PdfObject</CODE>s contained in this <CODE>PdfArray</CODE>,
 	 * enclosed in square brackets ("[]"). Adjacent elements are separated by the characters ", "
 	 * (comma and space).
-	 * 
+	 *
 	 * @return the string representation of this <CODE>PdfArray</CODE>
 	 */
 	@Override
@@ -201,7 +202,7 @@ public class PdfArray extends PdfObject {
 
 	/**
 	 * Overwrites a specified location of the array, returning the previous value
-	 * 
+	 *
 	 * @param idx The index of the element to be overwritten
 	 * @param obj new value for the specified index
 	 * @throws IndexOutOfBoundsException if the specified position doesn't exist
@@ -215,7 +216,7 @@ public class PdfArray extends PdfObject {
 	/**
 	 * Remove the element at the specified position from the array. Shifts any subsequent elements
 	 * to the left (subtracts one from their indices).
-	 * 
+	 *
 	 * @param idx The index of the element to be removed.
 	 * @throws IndexOutOfBoundsException the specified position doesn't exist
 	 * @since 2.1.5
@@ -226,7 +227,7 @@ public class PdfArray extends PdfObject {
 
 	/**
 	 * Get the internal arrayList for this PdfArray. Not Recommended.
-	 * 
+	 *
 	 * @deprecated
 	 * @return the internal ArrayList. Naughty Naughty.
 	 */
@@ -246,7 +247,7 @@ public class PdfArray extends PdfObject {
 
 	/**
 	 * Returns <CODE>true</CODE> if the array is empty.
-	 * 
+	 *
 	 * @return <CODE>true</CODE> if the array is empty
 	 * @since 2.1.5
 	 */
@@ -332,7 +333,7 @@ public class PdfArray extends PdfObject {
 
 	/**
 	 * Returns the list iterator for the array.
-	 * 
+	 *
 	 * @return a ListIterator
 	 */
 	public ListIterator listIterator() {
@@ -343,7 +344,7 @@ public class PdfArray extends PdfObject {
 	 * Returns the <CODE>PdfObject</CODE> with the specified index. A possible indirect references
 	 * is not resolved, so the returned <CODE>PdfObject</CODE> may be either a direct object or an
 	 * indirect reference, depending on how the object is stored in the <CODE>PdfArray</CODE>.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return A <CODE>PdfObject</CODE>
 	 */
@@ -355,7 +356,7 @@ public class PdfArray extends PdfObject {
 	 * Returns the <CODE>PdfObject</CODE> with the specified index, resolving a possible indirect
 	 * reference to a direct object. Thus this method will never return a
 	 * <CODE>PdfIndirectReference</CODE> object.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return A direct <CODE>PdfObject</CODE> or <CODE>null</CODE>
 	 */
@@ -371,7 +372,7 @@ public class PdfArray extends PdfObject {
 	 * references. The object corresponding to the specified index is retrieved and resolvedto a
 	 * direct object. If it is a <CODE>PdfDictionary</CODE>, it is cast down and returned as such.
 	 * Otherwise <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfDictionary</CODE> object, or <CODE>null</CODE>
 	 */
@@ -389,7 +390,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfArray</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfArray</CODE> object, or <CODE>null</CODE>
 	 */
@@ -407,7 +408,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfStream</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfStream</CODE> object, or <CODE>null</CODE>
 	 */
@@ -425,7 +426,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfString</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfString</CODE> object, or <CODE>null</CODE>
 	 */
@@ -443,7 +444,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfNumber</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfNumber</CODE> object, or <CODE>null</CODE>
 	 */
@@ -461,7 +462,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfName</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfName</CODE> object, or <CODE>null</CODE>
 	 */
@@ -479,7 +480,7 @@ public class PdfArray extends PdfObject {
 	 * The object corresponding to the specified index is retrieved and resolved to a direct object.
 	 * If it is a <CODE>PdfBoolean</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfBoolean</CODE> object, or <CODE>null</CODE>
 	 */
@@ -497,7 +498,7 @@ public class PdfArray extends PdfObject {
 	 * corresponding to the specified index is retrieved. If it is a
 	 * <CODE>PdfIndirectReference</CODE>, it is cast down and returned as such. Otherwise
 	 * <CODE>null</CODE> is returned.
-	 * 
+	 *
 	 * @param idx The index of the <CODE>PdfObject</CODE> to be returned
 	 * @return the corresponding <CODE>PdfIndirectReference</CODE> object, or <CODE>null</CODE>
 	 */

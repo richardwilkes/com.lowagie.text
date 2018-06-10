@@ -67,6 +67,7 @@ import java.util.Map;
 
 import org.xml.sax.SAXException;
 
+@SuppressWarnings("unchecked")
 class PdfStamperImp extends PdfWriter {
 	HashMap								readers2intrefs		= new HashMap();
 	HashMap								readers2file		= new HashMap();
@@ -95,7 +96,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Creates new PdfStamperImp.
-	 * 
+	 *
 	 * @param reader the read PDF
 	 * @param os the output destination
 	 * @param pdfVersion the new pdf version or '\0' to keep the same version as the original
@@ -770,7 +771,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Getter for property rotateContents.
-	 * 
+	 *
 	 * @return Value of property rotateContents.
 	 */
 	boolean isRotateContents() {
@@ -779,7 +780,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Setter for property rotateContents.
-	 * 
+	 *
 	 * @param rotateContents New value of property rotateContents.
 	 */
 	void setRotateContents(boolean rotateContents) {
@@ -1333,7 +1334,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Adds or replaces the Collection Dictionary in the Catalog.
-	 * 
+	 *
 	 * @param collection the new collection dictionary.
 	 */
 	void makePackage(PdfCollection collection) {
@@ -1357,7 +1358,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Sets the viewer preferences.
-	 * 
+	 *
 	 * @param preferences the viewer preferences
 	 * @see PdfWriter#setViewerPreferences(int)
 	 */
@@ -1369,7 +1370,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Adds a viewer preference
-	 * 
+	 *
 	 * @param key a key for a viewer preference
 	 * @param value the value for the viewer preference
 	 * @see PdfViewerPreferences#addViewerPreference
@@ -1382,7 +1383,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Set the signature flags.
-	 * 
+	 *
 	 * @param f the flags. This flags are ORed with current ones
 	 */
 	@Override
@@ -1392,7 +1393,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Always throws an <code>UnsupportedOperationException</code>.
-	 * 
+	 *
 	 * @param actionType ignore
 	 * @param action ignore
 	 * @throws PdfException ignore
@@ -1405,7 +1406,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Sets the open and close page additional action.
-	 * 
+	 *
 	 * @param actionType the action type. It can be <CODE>PdfWriter.PAGE_OPEN</CODE> or
 	 *            <CODE>PdfWriter.PAGE_CLOSE</CODE>
 	 * @param action the action to perform
@@ -1429,7 +1430,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Always throws an <code>UnsupportedOperationException</code>.
-	 * 
+	 *
 	 * @param seconds ignore
 	 */
 	@Override
@@ -1439,7 +1440,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Always throws an <code>UnsupportedOperationException</code>.
-	 * 
+	 *
 	 * @param transition ignore
 	 */
 	@Override
@@ -1449,7 +1450,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Sets the display duration for the page (for presentations)
-	 * 
+	 *
 	 * @param seconds the number of seconds to display the page. A negative value removes the entry
 	 * @param page the page where the duration will be applied. The first page is 1
 	 */
@@ -1465,7 +1466,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Sets the transition for the page
-	 * 
+	 *
 	 * @param transition the transition object. A <code>null</code> removes the transition
 	 * @param page the page where the transition will be applied. The first page is 1
 	 */
@@ -1501,7 +1502,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Getter for property append.
-	 * 
+	 *
 	 * @return Value of property append.
 	 */
 	boolean isAppend() {
@@ -1585,7 +1586,7 @@ class PdfStamperImp extends PdfWriter {
 	 * Reads the OCProperties dictionary from the catalog of the existing document and fills the
 	 * documentOCG, documentOCGorder and OCGRadioGroup variables in PdfWriter. Note that the
 	 * original OCProperties of the existing document can contain more information.
-	 * 
+	 *
 	 * @since 2.1.2
 	 */
 	protected void readOCProperties() {
@@ -1631,7 +1632,7 @@ class PdfStamperImp extends PdfWriter {
 
 	/**
 	 * Recursive method to reconstruct the documentOCGorder variable in the writer.
-	 * 
+	 *
 	 * @param parent a parent PdfLayer (can be null)
 	 * @param arr an array possibly containing children for the parent PdfLayer
 	 * @param ocgmap a HashMap with indirect reference Strings as keys and PdfLayer objects as
@@ -1682,7 +1683,7 @@ class PdfStamperImp extends PdfWriter {
 	/**
 	 * Gets the PdfLayer objects in an existing document as a Map with the names/titles of the
 	 * layers as keys.
-	 * 
+	 *
 	 * @return a Map with all the PdfLayers in the document (and the name/title of the layer as key)
 	 * @since 2.1.2
 	 */

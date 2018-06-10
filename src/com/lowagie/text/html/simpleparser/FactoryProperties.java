@@ -42,19 +42,13 @@
  *
  * Contributions by:
  * Lubos Strapko
- * 
+ *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
  * http://www.lowagie.com/iText/
  */
 
 package com.lowagie.text.html.simpleparser;
-
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.StringTokenizer;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Element;
@@ -64,16 +58,21 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.FontFactoryImp;
 import com.lowagie.text.ListItem;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.html.Markup;
 import com.lowagie.text.html.HtmlTags;
+import com.lowagie.text.html.Markup;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.HyphenationAuto;
 import com.lowagie.text.pdf.HyphenationEvent;
 
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.StringTokenizer;
+
 /**
- *
- * @author  psoares
+ * @author psoares
  */
+@SuppressWarnings("unchecked")
 public class FactoryProperties {
 
 	private FontFactoryImp fontImp = FontFactory.getFontImp();
@@ -87,10 +86,11 @@ public class FactoryProperties {
 		float size = font.getSize();
 		size /= 2;
 		Chunk ck = new Chunk(text, font);
-		if (props.hasProperty("sub"))
+		if (props.hasProperty("sub")) {
 			ck.setTextRise(-size);
-		else if (props.hasProperty("sup"))
+		} else if (props.hasProperty("sup")) {
 			ck.setTextRise(size);
+		}
 		ck.setHyphenation(getHyphenation(props));
 		return ck;
 	}
@@ -119,12 +119,13 @@ public class FactoryProperties {
 	public static void createParagraph(Paragraph p, ChainedProperties props) {
 		String value = props.getProperty("align");
 		if (value != null) {
-			if (value.equalsIgnoreCase("center"))
+			if (value.equalsIgnoreCase("center")) {
 				p.setAlignment(Element.ALIGN_CENTER);
-			else if (value.equalsIgnoreCase("right"))
+			} else if (value.equalsIgnoreCase("right")) {
 				p.setAlignment(Element.ALIGN_RIGHT);
-			else if (value.equalsIgnoreCase("justify"))
+			} else if (value.equalsIgnoreCase("justify")) {
 				p.setAlignment(Element.ALIGN_JUSTIFIED);
+			}
 		}
 		p.setHyphenation(getHyphenation(props));
 		setParagraphLeading(p, props.getProperty("leading"));
@@ -169,39 +170,49 @@ public class FactoryProperties {
 			StringTokenizer tok = new StringTokenizer(face, ",");
 			while (tok.hasMoreTokens()) {
 				face = tok.nextToken().trim();
-				if (face.startsWith("\""))
+				if (face.startsWith("\"")) {
 					face = face.substring(1);
-				if (face.endsWith("\""))
+				}
+				if (face.endsWith("\"")) {
 					face = face.substring(0, face.length() - 1);
-				if (fontImp.isRegistered(face))
+				}
+				if (fontImp.isRegistered(face)) {
 					break;
+				}
 			}
 		}
 		int style = 0;
-		if (props.hasProperty(HtmlTags.I))
+		if (props.hasProperty(HtmlTags.I)) {
 			style |= Font.ITALIC;
-		if (props.hasProperty(HtmlTags.B))
+		}
+		if (props.hasProperty(HtmlTags.B)) {
 			style |= Font.BOLD;
-		if (props.hasProperty(HtmlTags.U))
+		}
+		if (props.hasProperty(HtmlTags.U)) {
 			style |= Font.UNDERLINE;
-		if (props.hasProperty(HtmlTags.S))
+		}
+		if (props.hasProperty(HtmlTags.S)) {
 			style |= Font.STRIKETHRU;
+		}
 		String value = props.getProperty(ElementTags.SIZE);
 		float size = 12;
-		if (value != null)
+		if (value != null) {
 			size = Float.parseFloat(value);
+		}
 		Color color = Markup.decodeColor(props.getProperty("color"));
 		String encoding = props.getProperty("encoding");
-		if (encoding == null)
+		if (encoding == null) {
 			encoding = BaseFont.WINANSI;
+		}
 		return fontImp.getFont(face, encoding, true, size, style, color);
 	}
 
 	/**
 	 * Gets a HyphenationEvent based on the hyphenation entry in ChainedProperties.
-	 * @param	props	ChainedProperties
-	 * @return	a HyphenationEvent
-	 * @since	2.1.2
+	 * 
+	 * @param props ChainedProperties
+	 * @return a HyphenationEvent
+	 * @since 2.1.2
 	 */
 	public static HyphenationEvent getHyphenation(ChainedProperties props) {
 		return getHyphenation(props.getProperty("hyphenation"));
@@ -209,20 +220,22 @@ public class FactoryProperties {
 
 	/**
 	 * Gets a HyphenationEvent based on the hyphenation entry in a HashMap.
-	 * @param	props	a HashMap with properties
-	 * @return	a HyphenationEvent
-	 * @since	2.1.2
+	 * 
+	 * @param props a HashMap with properties
+	 * @return a HyphenationEvent
+	 * @since 2.1.2
 	 */
 	public static HyphenationEvent getHyphenation(HashMap props) {
 		return getHyphenation((String) props.get("hyphenation"));
 	}
 
 	/**
-	 * Gets a HyphenationEvent based on a String.
-	 * For instance "en_UK,3,2" returns new HyphenationAuto("en", "UK", 3, 2);
-	 * @param	s a String, for instance "en_UK,2,2"
-	 * @return	a HyphenationEvent
-	 * @since	2.1.2
+	 * Gets a HyphenationEvent based on a String. For instance "en_UK,3,2" returns new
+	 * HyphenationAuto("en", "UK", 3, 2);
+	 * 
+	 * @param s a String, for instance "en_UK,2,2"
+	 * @return a HyphenationEvent
+	 * @since 2.1.2
 	 */
 	public static HyphenationEvent getHyphenation(String s) {
 		if (s == null || s.length() == 0) {
@@ -256,39 +269,40 @@ public class FactoryProperties {
 	}
 
 	/**
-	 * This method isn't used by iText, but you can use it to analyze
-	 * the value of a style attribute inside a HashMap.
-	 * The different elements of the style attribute are added to the
-	 * HashMap as key-value pairs.
-	 * @param	h	a HashMap that should have at least a key named
-	 * style. After this method is invoked, more keys could be added.
+	 * This method isn't used by iText, but you can use it to analyze the value of a style attribute
+	 * inside a HashMap. The different elements of the style attribute are added to the HashMap as
+	 * key-value pairs.
+	 * 
+	 * @param h a HashMap that should have at least a key named style. After this method is invoked,
+	 *            more keys could be added.
 	 */
 	public static void insertStyle(HashMap h) {
 		String style = (String) h.get("style");
-		if (style == null)
+		if (style == null) {
 			return;
+		}
 		Properties prop = Markup.parseAttributes(style);
-		for (Iterator it = prop.keySet().iterator(); it.hasNext();) {
-			String key = (String) it.next();
+		for (Object element : prop.keySet()) {
+			String key = (String) element;
 			if (key.equals(Markup.CSS_KEY_FONTFAMILY)) {
 				h.put("face", prop.getProperty(key));
 			} else if (key.equals(Markup.CSS_KEY_FONTSIZE)) {
-				h.put("size", Float.toString(Markup.parseLength(prop
-						.getProperty(key)))
-						+ "pt");
+				h.put("size", Float.toString(Markup.parseLength(prop.getProperty(key))) + "pt");
 			} else if (key.equals(Markup.CSS_KEY_FONTSTYLE)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals("italic") || ss.equals("oblique"))
+				if (ss.equals("italic") || ss.equals("oblique")) {
 					h.put("i", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_FONTWEIGHT)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals("bold") || ss.equals("700") || ss.equals("800")
-						|| ss.equals("900"))
+				if (ss.equals("bold") || ss.equals("700") || ss.equals("800") || ss.equals("900")) {
 					h.put("b", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_TEXTDECORATION)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals(Markup.CSS_VALUE_UNDERLINE))
+				if (ss.equals(Markup.CSS_VALUE_UNDERLINE)) {
 					h.put("u", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_COLOR)) {
 				Color c = Markup.decodeColor(prop.getProperty(key));
 				if (c != null) {
@@ -302,11 +316,10 @@ public class FactoryProperties {
 				String ss = prop.getProperty(key).trim();
 				float v = Markup.parseLength(prop.getProperty(key));
 				if (ss.endsWith("%")) {
-					h.put("leading", "0," + (v / 100));
+					h.put("leading", "0," + v / 100);
 				} else if ("normal".equalsIgnoreCase(ss)) {
 					h.put("leading", "0,1.5");
-				}
-				else {
+				} else {
 					h.put("leading", v + ",0");
 				}
 			} else if (key.equals(Markup.CSS_KEY_TEXTALIGN)) {
@@ -318,41 +331,42 @@ public class FactoryProperties {
 
 	/**
 	 * New method contributed by Lubos Strapko
+	 * 
 	 * @param h
 	 * @param cprops
 	 * @since 2.1.3
 	 */
 	public static void insertStyle(HashMap h, ChainedProperties cprops) {
 		String style = (String) h.get("style");
-		if (style == null)
+		if (style == null) {
 			return;
+		}
 		Properties prop = Markup.parseAttributes(style);
-		for (Iterator it = prop.keySet().iterator(); it.hasNext();) {
-			String key = (String) it.next();
+		for (Object element : prop.keySet()) {
+			String key = (String) element;
 			if (key.equals(Markup.CSS_KEY_FONTFAMILY)) {
 				h.put(ElementTags.FACE, prop.getProperty(key));
 			} else if (key.equals(Markup.CSS_KEY_FONTSIZE)) {
-				float actualFontSize = Markup.parseLength(cprops
-						.getProperty(ElementTags.SIZE),
-						Markup.DEFAULT_FONT_SIZE);
-				if (actualFontSize <= 0f)
+				float actualFontSize = Markup.parseLength(cprops.getProperty(ElementTags.SIZE), Markup.DEFAULT_FONT_SIZE);
+				if (actualFontSize <= 0f) {
 					actualFontSize = Markup.DEFAULT_FONT_SIZE;
-				h.put(ElementTags.SIZE, Float.toString(Markup.parseLength(prop
-						.getProperty(key), actualFontSize))
-						+ "pt");
+				}
+				h.put(ElementTags.SIZE, Float.toString(Markup.parseLength(prop.getProperty(key), actualFontSize)) + "pt");
 			} else if (key.equals(Markup.CSS_KEY_FONTSTYLE)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals("italic") || ss.equals("oblique"))
+				if (ss.equals("italic") || ss.equals("oblique")) {
 					h.put("i", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_FONTWEIGHT)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals("bold") || ss.equals("700") || ss.equals("800")
-						|| ss.equals("900"))
+				if (ss.equals("bold") || ss.equals("700") || ss.equals("800") || ss.equals("900")) {
 					h.put("b", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_TEXTDECORATION)) {
 				String ss = prop.getProperty(key).trim().toLowerCase();
-				if (ss.equals(Markup.CSS_VALUE_UNDERLINE))
+				if (ss.equals(Markup.CSS_VALUE_UNDERLINE)) {
 					h.put("u", null);
+				}
 			} else if (key.equals(Markup.CSS_KEY_COLOR)) {
 				Color c = Markup.decodeColor(prop.getProperty(key));
 				if (c != null) {
@@ -364,15 +378,13 @@ public class FactoryProperties {
 				}
 			} else if (key.equals(Markup.CSS_KEY_LINEHEIGHT)) {
 				String ss = prop.getProperty(key).trim();
-				float actualFontSize = Markup.parseLength(cprops
-						.getProperty(ElementTags.SIZE),
-						Markup.DEFAULT_FONT_SIZE);
-				if (actualFontSize <= 0f)
+				float actualFontSize = Markup.parseLength(cprops.getProperty(ElementTags.SIZE), Markup.DEFAULT_FONT_SIZE);
+				if (actualFontSize <= 0f) {
 					actualFontSize = Markup.DEFAULT_FONT_SIZE;
-				float v = Markup.parseLength(prop.getProperty(key),
-						actualFontSize);
+				}
+				float v = Markup.parseLength(prop.getProperty(key), actualFontSize);
 				if (ss.endsWith("%")) {
-					h.put("leading", "0," + (v / 100));
+					h.put("leading", "0," + v / 100);
 					return;
 				}
 				if ("normal".equalsIgnoreCase(ss)) {
