@@ -2,7 +2,7 @@
 
 VERSION=2.1.7
 BUILD_DIR=.build
-MODULES_DIR=$HOME/code/java/gcs/modules
+MODULES_DIR=../java_modules
 
 /bin/rm -rf $BUILD_DIR
 /bin/rm -f $MODULES_DIR/com.lowagie.text*
