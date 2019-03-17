@@ -7,6 +7,10 @@
 		<property name="build.dir" value="antbuild"/>
 		<property name="modules.dir" value="../java_modules"/>
 
+        <delete>
+            <fileset dir="." includes="**/.DS_Store" defaultexcludes="false"/>
+        </delete>
+
 	    <delete dir="${build.dir}"/>
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${modules.dir}"/>
